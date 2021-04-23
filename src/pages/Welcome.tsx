@@ -1,35 +1,50 @@
-import React, { useState } from "react";
-import { Image, SafeAreaView, StyleSheet, Text } from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
+import React from "react";
+import { Dimensions, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import wateringImage from "../assets/watering.png";
-import { Button } from "../components/Button";
 import colors from "../styles/colors";
+import fonts from "../styles/fonts";
 
 
 export function Welcome() {
-    const [visible, setVisible] = useState(false);
 
-    function handleVisibility(): void {
-        setVisible(true);
+    const navigation = useNavigation();
+
+    function goToUserIdentification() {
+        navigation.navigate("UserIdentication");
     }
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>
-                Gerencie {"\n"}
-                suas plantas {"\n"}
-                de forma fácil
+            <View style={styles.wrapper}>
+                <Text style={styles.title}>
+                    Gerencie {"\n"}
+                suas plantas de {"\n"}
+                forma fácil
             </Text>
 
-            {
-                visible && <Image source={wateringImage} style={styles.image} />
-            }
+                <Image source={wateringImage}
+                    style={styles.image}
+                    resizeMode="contain"
+                />
 
-            <Text style={styles.subtitle}>
-                Não esqueça mais de regar suas plantas. Nós cuidamos de lembrar você
-                sempre que precisar.
+                <Text style={styles.subtitle}>
+                    Não esqueça mais de regar suas plantas.
+                    Nós cuidamos de lembrar você sempre que precisar.
             </Text>
-
-            <Button title="Avançar" onPress={handleVisibility} />
+                <TouchableOpacity
+                    style={styles.button}
+                    activeOpacity={0.7}
+                    onPress={goToUserIdentification}
+                >
+                    <Text>
+                        <Feather name="chevron-right"
+                            style={styles.buttonIcon}
+                        />
+                    </Text>
+                </TouchableOpacity>
+            </View>
         </SafeAreaView>
     );
 }
@@ -38,8 +53,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
+    },
+    wrapper: {
+        flex: 1,
         alignItems: "center",
-        justifyContent: "space-between",
+        justifyContent: "space-around",
+        paddingHorizontal: 20
     },
     title: {
         fontSize: 32,
@@ -47,15 +66,30 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: colors.heading,
         marginTop: 38,
+        fontFamily: fonts.heading,
+        lineHeight: 38
     },
     subtitle: {
         textAlign: "center",
         fontSize: 18,
         paddingHorizontal: 20,
         color: colors.heading,
+        fontFamily: fonts.text
     },
     image: {
-        width: 292,
-        height: 284,
+        height: Dimensions.get("window").width * 0.70,
+    },
+    button: {
+        backgroundColor: colors.green,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 16,
+        marginBottom: 10,
+        height: 56,
+        width: 56
+    },
+    buttonIcon: {
+        fontSize: 32,
+        color: colors.white,
     },
 });
