@@ -4,12 +4,12 @@ import {
     Keyboard, KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, Text, TextInput, View,
     TouchableWithoutFeedback
 } from "react-native";
-import { Button } from "../components/Button";
+import Button from "../components/Button";
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 
 
-export function UserIdentication() {
+export default function UserIdentication() {
 
     const [isFocused, setIsFocused] = useState(false);
     const [isFilled, setIsFilled] = useState(false);
